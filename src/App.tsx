@@ -1,43 +1,38 @@
 import { useState } from 'react'
-import logo from './logo.svg'
+import headerLogo from './HAMSTER-WARS-black-logo.svg'
 import './App.css'
+import { fixUrl } from './utils'
+import { Link, Route, Routes } from 'react-router-dom'
+import Start from './components/start'
+import Galleri from './components/galleri'
+// import Spela from './components/spela'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [maybeData, setMaybeData] = useState<string[] | null>(null)
+
+  const getData: () => Promise<void> = async () => {
+    const response = await fetch(fixUrl('/hamsters'))
+    const data = await response.json()
+    setMaybeData(data)
+  }
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
+      <header>
+        <img src={headerLogo} className="Header-logo" alt="headerLogo" />
       </header>
+      <nav>
+        <Link to="/">Start</Link>
+        {/* <Link to="/spela">Spela</Link> */}
+        <Link to="/galleri">Galleri</Link>
+      </nav>
+      <main>
+        <Routes>
+          <Route path="/" element={<Start />} />
+          <Route path="/galleri" element={<Galleri />} />
+          {/* <Route path="/spela" element={<Spela />} /> */}
+        </Routes>
+      </main>
     </div>
   )
 }
