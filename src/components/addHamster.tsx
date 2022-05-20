@@ -1,4 +1,3 @@
-import { Hamster } from '../models/hamster'
 import { useState } from 'react'
 import { fixUrl } from '../utils'
 
@@ -90,6 +89,8 @@ const addHamster = () => {
   }
 
   const newHamster = async () => {
+    const url = '/hamsters'
+    const correctUrl = fixUrl(url)
     if (
       newNameChanged &&
       newHamsterAgeChanged &&
@@ -97,19 +98,19 @@ const addHamster = () => {
       newLovesChanged &&
       newImgChanged == true
     ) {
-      await fetch('/hamsters', {
+      await fetch(correctUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log('This is:', data)
+          console.log('Här är: ', data)
         })
         .catch((error) => {
-          console.log('Error:', error)
+          console.log('Fel: ', error)
         })
-    } else console.log('Något fält är fortfarande inte ifyllt.')
+    } else console.log('Något saknas, är alla fält ifyllda?')
   }
 
   return (
@@ -144,7 +145,9 @@ const addHamster = () => {
         value={newImg}
         onChange={handleImgNameChange}
       />
-      <button onClick={() => newHamster()}>Lägg till ny hamster</button>
+      <button className="addHamsterButton" onClick={() => newHamster()}>
+        Lägg till ny hamster
+      </button>
     </div>
   )
 }

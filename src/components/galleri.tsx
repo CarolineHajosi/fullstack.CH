@@ -35,7 +35,11 @@ const Galleri = () => {
         {myHamster
           ? myHamster.map((hamster) => (
               <section key={hamster.id} className="myHamster">
-                <img src={fixUrl(`/img/${hamster.imgName}`)} />
+                <img
+                  src={fixUrl(`/img/${hamster.imgName}`)}
+                  alt={'Bild saknas.'}
+                />
+
                 <br />
                 <p>
                   Namn: {hamster.name}
@@ -54,10 +58,10 @@ const Galleri = () => {
                 </p>
 
                 <button
-                  className="remove-button"
+                  className="removeHamsterButton"
                   onClick={() => removeHamster(hamster.id)}
                 >
-                  Radera
+                  X
                 </button>
               </section>
             ))
