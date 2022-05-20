@@ -1,12 +1,13 @@
 .App {
   text-align: center;
-  padding: 0 15em;
+
   align-items: center;
 }
 
 .Header-logo {
   max-width: 600px;
   pointer-events: none;
+  padding: 30px;
 }
 
 a,
@@ -37,4 +38,8 @@ button {
 
 .myHamster img {
   width: 160px;
+}
+
+.hamsterInput {
+  padding: 30px;
 }

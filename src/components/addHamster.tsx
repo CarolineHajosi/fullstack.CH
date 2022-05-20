@@ -113,7 +113,7 @@ const addHamster = () => {
   }
 
   return (
-    <div className="new-hamster-container">
+    <div className="hamsterInput">
       <input
         type="text"
         placeholder="Namn"
