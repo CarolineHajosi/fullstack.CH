@@ -22,9 +22,8 @@ const Galleri = () => {
   }
 
   async function removeFromGallery(id: any) {
-    await fetch(`/hamsters/${id}`, {
-      method: 'delete',
-      headers: { 'Content-Type': 'application/json' },
+    fetch(fixUrl(`/hamsters/${id}`), {
+      method: 'DELETE',
     })
   }
 
