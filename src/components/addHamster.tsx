@@ -145,6 +145,7 @@ const addHamster = () => {
         value={newImg}
         onChange={handleImgNameChange}
       />
+      <br />
       <button className="addHamsterButton" onClick={() => newHamster()}>
         Lägg till ny hamster
       </button>

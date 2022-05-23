@@ -5,7 +5,7 @@ import { fixUrl } from './utils'
 import { Link, Route, Routes } from 'react-router-dom'
 import Start from './components/start'
 import Galleri from './components/galleri'
-// import Spela from './components/spela'
+import Spela from './components/spela'
 
 function App() {
   const [maybeData, setMaybeData] = useState<string[] | null>(null)
@@ -23,14 +23,14 @@ function App() {
       </header>
       <nav>
         <Link to="/">Start</Link>
-        {/* <Link to="/spela">Spela</Link> */}
+        <Link to="/spela">Spela</Link>
         <Link to="/galleri">Galleri</Link>
       </nav>
       <main>
         <Routes>
           <Route path="/" element={<Start />} />
           <Route path="/galleri" element={<Galleri />} />
-          {/* <Route path="/spela" element={<Spela />} /> */}
+          <Route path="/spela" element={<Spela />} />
         </Routes>
       </main>
     </div>
