@@ -3,6 +3,8 @@
   align-items: center;
 }
 
+/* Bilder */
+
 .Header-logo {
   width: 600px;
   margin: 20px;
@@ -17,6 +19,8 @@ nav {
   padding-bottom: 25px;
 }
 
+/* Knappar */
+
 a {
   color: white;
   font-size: 25px;
@@ -26,6 +30,71 @@ a {
   text-decoration: none;
   border-radius: 50px;
   margin: 20px;
+  cursor: pointer;
+}
+
+.battleButton {
+  border-style: none;
+  width: 200px;
+  height: 30px;
+  background-color: #0e3b43;
+  color: white;
+  position: relative;
+  margin-top: 2em;
+  left: 80%;
+  border: solid black 2.5px;
+}
+
+.addHamsterButton {
+  color: white;
+  font-size: 25px;
+  padding: 5px 25px;
+  background-color: #0e3b43;
+  border: solid 1.5px black;
+  text-decoration: none;
+  border-radius: 50px;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.removeHamsterButton {
+  color: red;
+  background-color: #0e3b43;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50px;
+  width: 50px;
+  border-color: black;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.voteButton {
+  color: white;
+  font-size: 15px;
+  padding: 5px 25px;
+  background-color: #0e3b43;
+  border: solid 1.5px black;
+  border-radius: 50px;
+  margin: 20px;
+  cursor: pointer;
+}
+
+a:hover,
+.battleButton:hover,
+.removeHamsterButton:hover,
+.addHamsterButton:hover,
+.voteButton:hover {
+  background-color: #357266;
+  border: solid 1.5px white;
+}
+
+a:active,
+.battleButton:active,
+.removeHamsterButton:active,
+.addHamsterButton:active,
+.voteButton:active {
+  background-color: #0e3b43;
 }
 
 .start {
@@ -43,27 +112,7 @@ a {
   font-size: 12px;
 }
 
-.removeHamsterButton {
-  color: red;
-  background-color: #0e3b43;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 50px;
-  width: 50px;
-  border-color: black;
-  padding: 10px;
-}
-
-.addHamsterButton {
-  color: white;
-  font-size: 25px;
-  padding: 5px 25px;
-  background-color: #0e3b43;
-  border: solid 1.5px black;
-  text-decoration: none;
-  border-radius: 50px;
-  margin: 20px;
-}
+/* Inputfält */
 
 input[type='text'] {
   width: 150px;
@@ -85,6 +134,8 @@ input[type='number'] {
   color: white;
 }
 
+/* Galleri */
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -103,12 +154,24 @@ input[type='number'] {
   background-color: #357266;
 }
 
+.myBestHamster {
+  color: white;
+  height: auto;
+  background-color: #357266;
+}
+
 .myHamster img {
   width: 160px;
 }
 
+.myHamsterImg {
+  width: 180px;
+}
+
+/* Spela */
+
 .battleWrapper {
-  padding-bottom: 5em;
+  padding-bottom: 80px;
 }
 
 .battle {
@@ -148,14 +211,23 @@ input[type='number'] {
   border: solid white 5px;
 }
 
-.battle button {
-  border-style: none;
-  width: 200px;
-  height: 30px;
-  background-color: #0e3b43;
+.winningWarrior {
+  grid-column: 1/2;
+  grid-row: 1/4;
+  text-align: center;
+  background-color: #006400;
+  border: solid black 5px;
   color: white;
-  position: relative;
-  margin-top: 2em;
-  left: 80%;
-  border: solid black 2.5px;
+  font-variant-caps: small-caps;
+}
+
+.loserWarrior {
+  grid-column: 2/4;
+  grid-row: 1/4;
+  text-align: center;
+  background-color: #8b0000;
+  border: solid black 5px;
+  color: white;
+  font-variant-caps: small-caps;
+  opacity: 0.5;
 }

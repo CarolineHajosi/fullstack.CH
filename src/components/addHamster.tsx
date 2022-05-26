@@ -10,9 +10,9 @@ const addHamster = () => {
 
   const [newNameChanged, putNewNameChanged] = useState<boolean>(false)
   const [newHamsterAgeChanged, putNewAgeChanged] = useState<boolean>(false)
-  const [newFoodChanged, setnewFoodChanged] = useState<boolean>(false)
-  const [newLovesChanged, setnewLovesChanged] = useState<boolean>(false)
-  const [newImgChanged, setnewImgChanged] = useState<boolean>(false)
+  const [newFoodChanged, setNewFoodChanged] = useState<boolean>(false)
+  const [newLovesChanged, setNewLovesChanged] = useState<boolean>(false)
+  const [newImgChanged, setNewImgChange] = useState<boolean>(false)
 
   const handleNameChange = (e: string | any) => {
     putNewName(e.target.value)
@@ -39,12 +39,12 @@ const addHamster = () => {
 
   const handleFavFoodChange = (e: string | any) => {
     putNewFood(e.target.value)
-    setnewFoodChanged(false)
+    setNewFoodChanged(false)
     if (e.target.value.length >= 2) {
-      setnewFoodChanged(true)
+      setNewFoodChanged(true)
       console.log('Favoritmaten har fler än 1 bokstav, godkänt.')
     } else if (e.target.value.length <= 2) {
-      setnewFoodChanged(false)
+      setNewFoodChanged(false)
       console.log(
         'Favoritmaten måste innehålla fler än 1 bokstav, inte godkänt.'
       )
@@ -53,12 +53,12 @@ const addHamster = () => {
 
   const handleLovesChange = (e: string | any) => {
     putNewLoves(e.target.value)
-    setnewLovesChanged(false)
+    setNewLovesChanged(false)
     if (e.target.value.length >= 2) {
-      setnewLovesChanged(true)
+      setNewLovesChanged(true)
       console.log('Älsklingsaktiviteten har fler än 1 bokstav, godkänt.')
     } else if (e.target.value.length <= 2) {
-      setnewLovesChanged(false)
+      setNewLovesChanged(false)
       console.log(
         'Älsklingsaktiviteten måste ha fler än 1 bokstav, inte godkänt.'
       )
@@ -67,17 +67,18 @@ const addHamster = () => {
 
   const handleImgNameChange = (e: string | any) => {
     putNewImg(e.target.value)
-    setnewImgChanged(false)
-    if (e.target.value.includes('.jpg')) {
-      setnewImgChanged(true)
-      console.log('Bildnamnet är en jpg, godkänt.')
-    } else if (!e.target.value.includes('.jpg')) {
-      setnewImgChanged(false)
-      console.log('Bildnamnet måste vara en jpg, inte godkänt.')
+    setNewImgChange(false)
+    if (e.target.value.length >= 2) {
+      setNewImgChange(true)
+      console.log('Bildlänken har fler än 1 bokstav, godkänt.')
+      console.log(newImg)
+    } else if (e.target.value.length <= 2) {
+      setNewImgChange(false)
+      console.log('Bildlänken måste ha fler än 1 bokstav, inte godkänt.')
     }
   }
 
-  let data = {
+  let myNewHamster = {
     name: newName,
     age: newAge,
     favFood: newFood,
@@ -101,11 +102,11 @@ const addHamster = () => {
       await fetch(correctUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(myNewHamster),
       })
         .then((response) => response.json())
-        .then((data) => {
-          console.log('Här är: ', data)
+        .then((myNewHamster) => {
+          console.log('Här är: ', myNewHamster)
         })
         .catch((error) => {
           console.log('Fel: ', error)
@@ -141,10 +142,11 @@ const addHamster = () => {
       />
       <input
         type="text"
-        placeholder="Bild (.jpg)"
+        placeholder="Bild-länk"
         value={newImg}
         onChange={handleImgNameChange}
       />
+
       <br />
       <button className="addHamsterButton" onClick={() => newHamster()}>
         Lägg till ny hamster
@@ -154,7 +156,10 @@ const addHamster = () => {
 }
 
 function isValidAge(age: number): boolean {
-  if (age < 0) return false
+  if (age < 0) {
+    console.log('Åldern kan inte vara en negativ siffra, ändra det.')
+    return false
+  }
   if (isNaN(age)) return false
   let ageString = String(age)
 

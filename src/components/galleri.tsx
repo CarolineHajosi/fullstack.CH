@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { fixUrl } from '../utils'
 import { Hamster } from '../models/hamster'
 import AddHamster from './addHamster'
+import hamsterLogo from '../HamsterLogo.jpg'
 
 const Galleri = () => {
   const [myHamster, setMyHamster] = useState<Hamster[] | null>(null)
@@ -29,31 +30,43 @@ const Galleri = () => {
 
   return (
     <>
+      <h3>Galleriet</h3>
+      <p>
+        Här nedan kan du se alla hamstrarna i appen.
+        <br />
+        Du kan lägga till en egen hamster genom att fylla i formuläret.
+        <br />
+        Du kan även välja att ta bort en hamster genom att trycka på det röda
+        krysset under hamstern.
+      </p>
       <AddHamster />
       <section className="gallery">
         {myHamster
           ? myHamster.map((hamster) => (
               <section key={hamster.id} className="myHamster">
+                <h3>{hamster.name}</h3>
                 <img
                   src={fixUrl(`/img/${hamster.imgName}`)}
-                  alt={'Bild saknas.'}
+                  onError={(e) => {
+                    ;(e.target as HTMLImageElement).onerror = null
+                    ;(e.target as HTMLImageElement).src = hamsterLogo
+                  }}
+                  alt="Bild saknas"
                 />
 
                 <br />
                 <p>
-                  Namn: {hamster.name}
+                  Ålder: {hamster.age}.
                   <br />
-                  Ålder: {hamster.age}
+                  Älskar att {hamster.loves}.
                   <br />
-                  Älskar att {hamster.loves}
+                  Äter gärna {hamster.favFood}.
                   <br />
-                  Äter gärna {hamster.favFood}
+                  Vinster: {hamster.wins}.
                   <br />
-                  Vinster: {hamster.wins}
+                  Förluster: {hamster.defeats}.
                   <br />
-                  Förluster: {hamster.defeats}
-                  <br />
-                  Totala matcher: {hamster.games}
+                  Totala matcher: {hamster.games}.
                 </p>
 
                 <button

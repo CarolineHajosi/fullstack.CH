@@ -10,13 +10,15 @@
     "start": "node backend/server.js"
   },
   "dependencies": {
+    "@types/recoil": "^0.0.9",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "firebase": "^9.8.1",
     "firebase-admin": "^10.2.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "recoil": "^0.7.3-alpha.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

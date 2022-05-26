@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Hamster } from '../models/hamster'
 import { fixUrl } from '../utils'
+import hamsterLogo from '../HamsterLogo.jpg'
 
 export const imgHamster = {
-  width: '300px',
+  width: '350px',
   height: 'auto',
   margin: '15px',
 }
@@ -21,6 +22,7 @@ const Spela = () => {
       const url = '/hamsters/random'
       const correctUrl = fixUrl(url)
       const response = await fetch(correctUrl, { method: 'GET' })
+
       const data: Hamster = await response.json()
       setHamsterWarrior1(data)
       setVoted(false)
@@ -110,8 +112,6 @@ const Spela = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(matchToSend),
     })
-    const data = response.text()
-    console.log('Skickat: ' + data)
   }
 
   function vote() {
@@ -125,31 +125,51 @@ const Spela = () => {
                 <img
                   style={imgHamster}
                   src={fixUrl(`/img/${hamsterWarrior1.imgName}`)}
-                  alt={'Bild saknas.'}
-                  onClick={() => voting(hamsterWarrior1, hamsterWarrior2)}
+                  onError={(e) => {
+                    ;(e.target as HTMLImageElement).onerror = null
+                    ;(e.target as HTMLImageElement).src = hamsterLogo
+                  }}
+                  alt="Bild saknas"
                 />
 
                 <p>
                   Känd för sin förmåga att {hamsterWarrior1.loves} och sin
                   stadiga diet av {hamsterWarrior1.favFood}
                 </p>
+                <button
+                  className="voteButton"
+                  onClick={() => voting(hamsterWarrior1, hamsterWarrior2)}
+                >
+                  Rösta
+                </button>
               </div>
             ) : (
               'Hämtar en krigshamster...'
             )}
+
             {hamsterWarrior2 ? (
               <div className="warrior2" key={hamsterWarrior2.id}>
                 <h1>{hamsterWarrior2.name}</h1>
                 <img
                   style={imgHamster}
                   src={fixUrl(`/img/${hamsterWarrior2.imgName}`)}
-                  alt={'Bild saknas.'}
-                  onClick={() => voting(hamsterWarrior1, hamsterWarrior2)}
+                  onError={(e) => {
+                    ;(e.target as HTMLImageElement).onerror = null
+                    ;(e.target as HTMLImageElement).src = hamsterLogo
+                  }}
+                  alt="Bild saknas"
                 />
                 <p>
                   Den stora passionen är att {hamsterWarrior2.loves} och att
                   samla {hamsterWarrior2.favFood}
                 </p>
+
+                <button
+                  className="voteButton"
+                  onClick={() => voting(hamsterWarrior2, hamsterWarrior1)}
+                >
+                  Rösta
+                </button>
               </div>
             ) : (
               'Hämtar en krigshamster...'
@@ -170,48 +190,58 @@ const Spela = () => {
         return (
           <section className="battle">
             {resultWinner ? (
-              <div className="warrior1" key={resultWinner.id}>
-                <h3>Vinnare!</h3>
-                <h5>{resultWinner.name}</h5>
+              <div className="winningWarrior" key={resultWinner.id}>
+                <h2>Vinnare!</h2>
+                <h3>{resultWinner.name}</h3>
                 <img
                   style={imgHamster}
                   src={fixUrl(`/img/${resultWinner.imgName}`)}
-                  alt={'Bild saknas.'}
+                  onError={(e) => {
+                    ;(e.target as HTMLImageElement).onerror = null
+                    ;(e.target as HTMLImageElement).src = hamsterLogo
+                  }}
+                  alt="Bild saknas"
                 />
                 <p>
-                  <b>Vunna matcher: </b>
-                  {resultWinner.wins} st
+                  <b>Vinster: </b>
+                  {resultWinner.wins}.
                 </p>
                 <p>
-                  <b>Förlorade matcher: </b>
-                  {resultWinner.defeats} st
+                  <b>Förluster: </b>
+                  {resultWinner.defeats}.
                 </p>
               </div>
             ) : (
               'Laddar vinnande hamster'
             )}
             {resultLoser ? (
-              <div className="warrior2" key={resultLoser.id}>
-                <h3>Förlorare!</h3>
-                <h5>{resultLoser.name}</h5>
+              <div className="loserWarrior" key={resultLoser.id}>
+                <h2>Förlorare!</h2>
+                <h3>{resultLoser.name}</h3>
                 <img
                   style={imgHamster}
                   src={fixUrl(`/img/${resultLoser.imgName}`)}
-                  alt={'Bild saknas.'}
+                  onError={(e) => {
+                    ;(e.target as HTMLImageElement).onerror = null
+                    ;(e.target as HTMLImageElement).src = hamsterLogo
+                  }}
+                  alt="Bild saknas"
                 />
                 <p>
-                  <b>Vunna matcher: </b>
-                  {resultLoser.wins} st
+                  <b>Vinster: </b>
+                  {resultLoser.wins}.
                 </p>
                 <p>
-                  <b>Förlorade matcher: </b>
-                  {resultLoser.defeats} st
+                  <b>Förluster: </b>
+                  {resultLoser.defeats}.
                 </p>
               </div>
             ) : (
               'Laddar förlorande hamster'
             )}
-            <button onClick={fightAgain}>SPELA IGEN</button>
+            <button className="battleButton" onClick={fightAgain}>
+              Ny match
+            </button>
           </section>
         )
       }
@@ -223,8 +253,14 @@ const Spela = () => {
 
   return (
     <div className="battleWrapper">
-      <h2>Välj den hamster du tycker är sötast</h2>
-      <h4>Tryck på bilden för att lägga din röst</h4>
+      <h3>Spela Hamster Wars</h3>
+      <p>
+        Nedan presenteras två urgulliga hamstrar.
+        <br />
+        Du väljer din favorit genom att trycka på "rösta" under hamsterns bild.
+        <br />
+        Du startar där efter nästa match genom att klicka på "ny match".
+      </p>
       {done}
       {result}
       <section className="battle"></section>

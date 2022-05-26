@@ -1,15 +1,18 @@
-# Hamster wars
+# Fullstack-projekt
 
-Består av ett frontend och ett backend.
+*Frontend - React and TypeScript*
+*Backend - Node.js, Express and Firestore*
 
-# Start
+# Nödvändiga scripts
 
-Startsidan för Hamster Wars.
+##npm install
+Installerar paket och beroenden som behövs för att allt ska fungera.
 
-# Spela
+## npm run start
+Startar backend-servern. 
 
-Spelsidan för Hamster Wars.
+## npm run dev
+Startar appen i development-mode.
 
-# Galleri
-
-I galleriet kan du se alla hamstrar, lägga till och ta bort dessa.
+## npm run build
+Bygger för produktion och ser till att nödvändiga filer finns i DIST-mappen
