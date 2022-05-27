@@ -1,7 +1,11 @@
-import { useState } from 'react'
 import { fixUrl } from '../utils'
+import { useState } from 'react'
 
-const addHamster = () => {
+interface IAddHamster {
+  updateHamsters(): void
+}
+
+const addHamster: React.FC<IAddHamster> = ({ updateHamsters }) => {
   const [newName, putNewName] = useState<string>('')
   const [newAge, putNewAge] = useState<number>(0)
   const [newFood, putNewFood] = useState<string>('')
@@ -14,14 +18,18 @@ const addHamster = () => {
   const [newLovesChanged, setNewLovesChanged] = useState<boolean>(false)
   const [newImgChanged, setNewImgChange] = useState<boolean>(false)
 
+  const [errorMessage, setErrorMessage] = useState<string>('')
+
   const handleNameChange = (e: string | any) => {
     putNewName(e.target.value)
     putNewNameChanged(false)
     if (e.target.value.length >= 2) {
       putNewNameChanged(true)
+      setErrorMessage('')
       console.log('Namnet har fler än 1 bokstav, godkänt.')
     } else if (e.target.value.length <= 2) {
       putNewNameChanged(false)
+      setErrorMessage('Namnet måste innehålla fler än 1 bokstav, inte godkänt.')
       console.log('Namnet måste innehålla fler än 1 bokstav, inte godkänt.')
     }
   }
@@ -34,6 +42,9 @@ const addHamster = () => {
     }
     if (ageIsValid) {
       console.log('Åldern är en siffra, godkänt.')
+      setErrorMessage('')
+    } else {
+      setErrorMessage('Åldern måste vara ett positivt tal, inte godkänt.')
     }
   }
 
@@ -42,9 +53,13 @@ const addHamster = () => {
     setNewFoodChanged(false)
     if (e.target.value.length >= 2) {
       setNewFoodChanged(true)
+      setErrorMessage('')
       console.log('Favoritmaten har fler än 1 bokstav, godkänt.')
     } else if (e.target.value.length <= 2) {
       setNewFoodChanged(false)
+      setErrorMessage(
+        'Favoritmaten måste innehålla fler än 1 bokstav, inte godkänt.'
+      )
       console.log(
         'Favoritmaten måste innehålla fler än 1 bokstav, inte godkänt.'
       )
@@ -56,9 +71,13 @@ const addHamster = () => {
     setNewLovesChanged(false)
     if (e.target.value.length >= 2) {
       setNewLovesChanged(true)
+      setErrorMessage('')
       console.log('Älsklingsaktiviteten har fler än 1 bokstav, godkänt.')
     } else if (e.target.value.length <= 2) {
       setNewLovesChanged(false)
+      setErrorMessage(
+        'Älsklingsaktiviteten måste ha fler än 1 bokstav, inte godkänt.'
+      )
       console.log(
         'Älsklingsaktiviteten måste ha fler än 1 bokstav, inte godkänt.'
       )
@@ -70,10 +89,12 @@ const addHamster = () => {
     setNewImgChange(false)
     if (e.target.value.length >= 2) {
       setNewImgChange(true)
+      setErrorMessage('')
       console.log('Bildlänken har fler än 1 bokstav, godkänt.')
       console.log(newImg)
     } else if (e.target.value.length <= 2) {
       setNewImgChange(false)
+      setErrorMessage('Bildlänken måste ha fler än 1 bokstav, inte godkänt.')
       console.log('Bildlänken måste ha fler än 1 bokstav, inte godkänt.')
     }
   }
@@ -106,7 +127,9 @@ const addHamster = () => {
       })
         .then((response) => response.json())
         .then((myNewHamster) => {
+          setErrorMessage('')
           console.log('Här är: ', myNewHamster)
+          updateHamsters()
         })
         .catch((error) => {
           console.log('Fel: ', error)
@@ -148,6 +171,7 @@ const addHamster = () => {
       />
 
       <br />
+      <p className="error">{errorMessage}</p>
       <button className="addHamsterButton" onClick={() => newHamster()}>
         Lägg till ny hamster
       </button>

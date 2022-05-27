@@ -134,6 +134,10 @@ input[type='number'] {
   color: white;
 }
 
+.error {
+  color: red;
+}
+
 /* Galleri */
 
 .gallery {

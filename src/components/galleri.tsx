@@ -28,6 +28,20 @@ const Galleri = () => {
     })
   }
 
+  const getHamsterUrl = (hamsterImgName: string): string => {
+    if (hamsterImgName.startsWith('https:')) {
+      return hamsterImgName
+    }
+    return fixUrl(`/img/${hamsterImgName}`)
+  }
+
+  const updateHamsters = (): void => {
+    async function send() {
+      await callHamsters(setMyHamster)
+    }
+    send()
+  }
+
   return (
     <>
       <h3>Galleriet</h3>
@@ -39,14 +53,14 @@ const Galleri = () => {
         Du kan även välja att ta bort en hamster genom att trycka på det röda
         krysset under hamstern.
       </p>
-      <AddHamster />
+      <AddHamster updateHamsters={updateHamsters} />
       <section className="gallery">
         {myHamster
           ? myHamster.map((hamster) => (
               <section key={hamster.id} className="myHamster">
                 <h3>{hamster.name}</h3>
                 <img
-                  src={fixUrl(`/img/${hamster.imgName}`)}
+                  src={getHamsterUrl(hamster.imgName)}
                   onError={(e) => {
                     ;(e.target as HTMLImageElement).onerror = null
                     ;(e.target as HTMLImageElement).src = hamsterLogo

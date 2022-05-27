@@ -81,10 +81,8 @@ const Spela = () => {
           setVoted(true)
         })
 
-        console.log(
-          'Vinnare: ' + fightWinner.name,
-          'Förlorare: ' + fightLoser.name
-        )
+        console.log('Vinnare: ' + fightWinner.name)
+        console.log('Förlorare: ' + fightLoser.name)
       }
     }
   }
