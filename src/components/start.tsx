@@ -3,7 +3,7 @@ import Gulligast from './gulligast'
 
 const Start = () => {
   return (
-    <div className="start">
+    <>
       <h3>Detta är en hamsterapp.</h3>
       <p>
         Här kan du ställa två gulliga hamstrar emot varandra i rafflande
@@ -18,17 +18,21 @@ const Start = () => {
         Det gör du genom att klicka på knappen "galleri".
       </p>
 
-      <img src={hamsterLogo} className="myHamsterImg" />
-      <br />
+      <div className="start">
+        <h3>Appens maskot - Hamstern Viking</h3>
+        <p className="sign">Ritad utav mig, Caroline Hajosi.</p>
+        <img src={hamsterLogo} className="myHamsterImg" />
+        <br />
+        <hr></hr>
+        <h3>Detta är hamstern med flest vinster just nu</h3>
+        <Gulligast />
 
-      <h3>Detta är hamstern med flest vinster just nu</h3>
-      <Gulligast />
-
-      <br />
-      <p className="footer">
-        Detta är en app utvecklad av Caroline Hajosi, FEU21 på IT-Högskolan.
-      </p>
-    </div>
+        <br />
+        <p className="sign">
+          Detta är en app utvecklad av Caroline Hajosi, FEU21 på IT-Högskolan.
+        </p>
+      </div>
+    </>
   )
 }
 
