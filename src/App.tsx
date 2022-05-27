@@ -1,4 +1,4 @@
-import headerLogo from './HAMSTER-WARS-black-logo.svg'
+import headerLogo from './header.png'
 import './App.css'
 
 import { Link, Route, Routes } from 'react-router-dom'
