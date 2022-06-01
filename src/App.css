@@ -97,6 +97,13 @@ a:active,
   background-color: #0e3b43;
 }
 
+.addHamsterButton:disabled,
+.addHamsterButton[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 .start {
   color: white;
   padding-top: 25px;
@@ -134,8 +141,36 @@ input[type='number'] {
   color: white;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: white;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: white;
+}
+
 .error {
-  color: red;
+  color: white;
 }
 
 /* Galleri */

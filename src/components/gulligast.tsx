@@ -34,6 +34,13 @@ const Gulligast = () => {
     getData()
   }, [])
 
+  const getHamsterUrl = (hamsterImgName: string): string => {
+    if (hamsterImgName.startsWith('https:')) {
+      return hamsterImgName
+    }
+    return fixUrl(`/img/${hamsterImgName}`)
+  }
+
   return (
     <div className="myBestHamster">
       {best ? (
@@ -41,7 +48,7 @@ const Gulligast = () => {
           <h3>{best.name}</h3>
           <img
             className="myHamsterImg"
-            src={fixUrl(`/img/${best.imgName}`)}
+            src={getHamsterUrl(best.imgName)}
             onError={(e) => {
               ;(e.target as HTMLImageElement).onerror = null
               ;(e.target as HTMLImageElement).src = hamsterLogo

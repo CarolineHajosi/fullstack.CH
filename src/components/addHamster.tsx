@@ -127,14 +127,23 @@ const addHamster: React.FC<IAddHamster> = ({ updateHamsters }) => {
       })
         .then((response) => response.json())
         .then((myNewHamster) => {
-          setErrorMessage('')
           console.log('Här är: ', myNewHamster)
           updateHamsters()
+          setErrorMessage('Din hamster är nu tillagd.')
+          putNewName('')
+          putNewAge(0)
+          putNewFood('')
+          putNewLoves('')
+          putNewImg('')
         })
         .catch((error) => {
           console.log('Fel: ', error)
         })
-    } else console.log('Något saknas, är alla fält ifyllda?')
+    } else
+      setErrorMessage(
+        'Något saknas, är alla fält korrekt ifyllda? Samtliga fält måste innehålla minst två tecken.'
+      )
+    console.log('Något saknas, är alla fält ifyllda?')
   }
 
   return (
@@ -172,7 +181,11 @@ const addHamster: React.FC<IAddHamster> = ({ updateHamsters }) => {
 
       <br />
       <p className="error">{errorMessage}</p>
-      <button className="addHamsterButton" onClick={() => newHamster()}>
+      <button
+        className="addHamsterButton"
+        disabled={!newName || !newAge || !newFood || !newLoves || !newImg}
+        onClick={() => newHamster()}
+      >
         Lägg till ny hamster
       </button>
     </div>
@@ -184,6 +197,7 @@ function isValidAge(age: number): boolean {
     console.log('Åldern kan inte vara en negativ siffra, ändra det.')
     return false
   }
+
   if (isNaN(age)) return false
   let ageString = String(age)
 

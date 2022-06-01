@@ -44,6 +44,13 @@ const Spela = () => {
     getSecondWarrior()
   }, [newFight])
 
+  const getHamsterUrl = (hamsterImgName: string): string => {
+    if (hamsterImgName.startsWith('https:')) {
+      return hamsterImgName
+    }
+    return fixUrl(`/img/${hamsterImgName}`)
+  }
+
   function voting(winner: Hamster, loser: Hamster) {
     if (winner && loser) {
       const updateWins = {
@@ -122,7 +129,7 @@ const Spela = () => {
                 <h1>{hamsterWarrior1.name}</h1>
                 <img
                   style={imgHamster}
-                  src={fixUrl(`/img/${hamsterWarrior1.imgName}`)}
+                  src={getHamsterUrl(hamsterWarrior1.imgName)}
                   onError={(e) => {
                     ;(e.target as HTMLImageElement).onerror = null
                     ;(e.target as HTMLImageElement).src = hamsterLogo
@@ -150,7 +157,7 @@ const Spela = () => {
                 <h1>{hamsterWarrior2.name}</h1>
                 <img
                   style={imgHamster}
-                  src={fixUrl(`/img/${hamsterWarrior2.imgName}`)}
+                  src={getHamsterUrl(hamsterWarrior2.imgName)}
                   onError={(e) => {
                     ;(e.target as HTMLImageElement).onerror = null
                     ;(e.target as HTMLImageElement).src = hamsterLogo
@@ -193,7 +200,7 @@ const Spela = () => {
                 <h3>{resultWinner.name}</h3>
                 <img
                   style={imgHamster}
-                  src={fixUrl(`/img/${resultWinner.imgName}`)}
+                  src={getHamsterUrl(resultWinner.imgName)}
                   onError={(e) => {
                     ;(e.target as HTMLImageElement).onerror = null
                     ;(e.target as HTMLImageElement).src = hamsterLogo
@@ -218,7 +225,7 @@ const Spela = () => {
                 <h3>{resultLoser.name}</h3>
                 <img
                   style={imgHamster}
-                  src={fixUrl(`/img/${resultLoser.imgName}`)}
+                  src={getHamsterUrl(resultLoser.imgName)}
                   onError={(e) => {
                     ;(e.target as HTMLImageElement).onerror = null
                     ;(e.target as HTMLImageElement).src = hamsterLogo
